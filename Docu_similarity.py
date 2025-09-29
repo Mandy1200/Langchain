@@ -3,13 +3,10 @@ from dotenv import load_dotenv
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Correctly initialize the embedding model with the required prefix
 embedding = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
 
-# Correct the documents list by adding commas to separate each string
 documents = [
     "Starts the day with a hot cup of chai and a quick check of emails on their phone.",
     "Navigates through heavy traffic, often relying on public transport or a shared cab.",
@@ -115,18 +112,14 @@ documents = [
 
 query = "What the employees has to deal with the most"
 
-# Embed the documents and the query
 doc_embeddings = embedding.embed_documents(documents)
 query_embedding = embedding.embed_query(query)
 
-# Calculate cosine similarity
 scores = cosine_similarity([query_embedding], doc_embeddings)[0]
 
-# Find the index of the highest similarity score
 index = np.argmax(scores)
 score = scores[index]
 
-# Print the results
 print(f"Query: {query}\n")
 print(f"Most similar document: {documents[index]}\n")
 print(f"Similarity score: {score}")
